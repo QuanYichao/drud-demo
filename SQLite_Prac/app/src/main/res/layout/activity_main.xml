@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="chao.pers.sqlite_prac.MainActivity">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="增删改查!" />
+
+    <Button
+        android:text="添加数据"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="addClick"/>
+
+    <Button
+        android:text="删除数据"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="deleteClick"/>
+
+    <Button
+        android:text="修改数据"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="updateClick"/>
+
+    <Button
+        android:text="条件查询"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="findByIdClick"/>
+
+    <Button
+        android:text="全查"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="findAllClick"/>
+</LinearLayout>
