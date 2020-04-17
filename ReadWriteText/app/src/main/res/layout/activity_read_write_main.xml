@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context="chao.pers.readwritetext.ReadWriteMainActivity">
+
+    <!--按钮用来跳转到输入文本数据的界面-->
+    <Button
+        android:id="@+id/onClick_InputText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="输入要写入的文本"/>
+
+    <!--TextView用于显示用户所需要写入的文本-->
+    <TextView
+        android:id="@+id/textview_input_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="请将NFC标签靠近手机背面读取或写入文本"
+        android:textColor="#F00"
+        android:textSize="16sp"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/nfc"/>
+</LinearLayout>
