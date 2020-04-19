@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.nio.charset.Charset;
 import java.util.Locale;
@@ -19,19 +22,23 @@ public class ReadWriteMainActivity extends AppCompatActivity {
 
 
 
-    private TextView mInputText;//用于显示用户输入的文本
+    private TextView nameTextView;//显示注册的姓名
 
-    private String mText;//用来暂时存储用户输入的文本格式数据
+    private TextView ageTextView;//显示注册的年龄
 
-    private Button inPutTextButton;
+    private String sname;//用来暂时存储用户输入的姓名
 
+    private String sage;//用来暂时存储用户输入的年龄
+
+    private Button inPutTextButton;//点击进行祖册
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_write_main);
 
-        mInputText=(TextView)findViewById(R.id.textview_input_text);
+        nameTextView=(TextView)findViewById(R.id.name);
+        ageTextView=(TextView)findViewById(R.id.age);
 
         inPutTextButton= (Button) findViewById(R.id.onClick_InputText);
         inPutTextButton.setOnClickListener(new View.OnClickListener() {
@@ -48,8 +55,11 @@ public class ReadWriteMainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode,int resultCode,Intent data){
         //测试响应码
         if(requestCode==1&&resultCode==1){
-            mText=data.getStringExtra("text");
-            mInputText.setText(mText);
+            sname=data.getStringExtra("name");
+            nameTextView.setText(sname);
+
+            sage=data.getStringExtra("age");
+            ageTextView.setText(sage);
         }
     }
 
@@ -59,7 +69,7 @@ public class ReadWriteMainActivity extends AppCompatActivity {
      */
     public void onNewIntent(Intent intent){
         //如果mText中为空，则动作为读操作
-        if(mText ==null){
+        if((sage ==null)&&(sname==null)){
             Intent myIntent=new Intent(this,ShowNFCTagContentActivity.class);
             //把Intent传到显示文本信息的Activity，并进行处理
             myIntent.putExtras(intent);
@@ -69,8 +79,10 @@ public class ReadWriteMainActivity extends AppCompatActivity {
         }else{
             //进行写操作
             Tag tag=intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            NdefMessage ndefMessage=new NdefMessage(new NdefRecord[]{createTextRecord(mText)});
-            writeTag(ndefMessage,tag);
+            NdefMessage ndefMessage=new NdefMessage(new NdefRecord[]{createTextRecord(sname+"\n"+sage)});
+            writeTag(ndefMessage, tag);
+            //提示用户注册成功
+            Toast.makeText(this,"恭喜您，注册成功！",Toast.LENGTH_SHORT).show();
         }
     }
 

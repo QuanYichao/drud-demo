@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ReadWriteText</string>
+    <string name="yesSign">先生/女士，您已打卡</string>
+    <string name="noSign">先生/女士，打卡成功</string>
 </resources>

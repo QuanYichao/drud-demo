@@ -9,13 +9,14 @@ import android.widget.EditText;
 
 public class InputTextActivity extends AppCompatActivity {
 
-    private Button button;
-    private EditText mTextTag;
+    private EditText nameEditText;
+    private EditText ageEditText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_text);
-        mTextTag=(EditText)findViewById(R.id.edittext_text_tag);
+        nameEditText=(EditText)findViewById(R.id.edit_text_name);
+        ageEditText=(EditText)findViewById(R.id.edit_text_age);
         //mTextTag.setOnClickListener(new WriteListener());
         //button=(Button)findViewById(R.id.onClick_InputText);
         //button.setOnClickListener(new WriteListener());
@@ -34,7 +35,8 @@ public class InputTextActivity extends AppCompatActivity {
 
     public void onClick_OK(View view){
         Intent intent=new Intent();
-        intent.putExtra("text",mTextTag.getText().toString());
+        intent.putExtra("name",nameEditText.getText().toString());
+        intent.putExtra("age",ageEditText.getText().toString());
         setResult(1, intent);
         finish();
     }

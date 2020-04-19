@@ -11,11 +11,18 @@
         android:id="@+id/onClick_InputText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="输入要写入的文本"/>
+        android:text="注册"/>
 
     <!--TextView用于显示用户所需要写入的文本-->
+    <!--显示姓名-->
     <TextView
-        android:id="@+id/textview_input_text"
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"/>
+    <!--显示年龄-->
+    <TextView
+        android:id="@+id/age"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"/>
