@@ -1,5 +1,5 @@
 package chao.pers.readwritetext;
-
+import android.text.format.Time;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -52,15 +52,15 @@ public class ShowNFCTagContentActivity extends AppCompatActivity {
         readNFCTag();
 
         //把文本设置到TextView中
-        mTagContent.setText(mTagText);
+        mTagContent.setText(mTagText.substring(4,mTagText.length()));
+
 
         /**
          * 进行数据库添加打卡操作，若数据库中没有数据，那么打卡添加，若有数据，则已经打过卡
          */
         databaseAdaper=new DatabaseAdapter(this);
         if(databaseAdaper.findById(sax(mTagText).getName())==null){
-            Dog dogdemo=databaseAdaper.findById(sax(mTagText).getName());
-            System.out.println(dogdemo);
+
             System.out.println("根据"+sax(mTagText).getName()+"来查询有没有这条狗");
             databaseAdaper.add(dog);
             System.out.println("数据库里面没有这个dog，那么我添加了");
@@ -120,6 +120,7 @@ public class ShowNFCTagContentActivity extends AppCompatActivity {
      * 解析String格式为Dog实体对象
      */
     public Dog sax(String text){
+        /**
         BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(new ByteArrayInputStream(text.getBytes(Charset.forName("utf8"))), Charset.forName("utf8")));
         String line1=null;
         String line2=null;
@@ -138,6 +139,54 @@ public class ShowNFCTagContentActivity extends AppCompatActivity {
         }catch (Exception e) {
             e.printStackTrace();
         }
+         **/
+        String []dogArr;
+        dogArr=text.split("\\.");
+        dog=new Dog();
+        dog.setName(dogArr[0]);
+        dog.setAge(Integer.parseInt(dogArr[1]));
         return dog;
     }
+
+
+    /**
+     * 判断当前系统时间是否在指定时间的范围内
+     *
+     * beginHour 开始小时,例如22
+     * beginMin  开始小时的分钟数,例如30
+     * endHour   结束小时,例如 8
+     * endMin    结束小时的分钟数,例如0
+     * true表示在范围内, 否则false
+     */
+    public boolean isCurrentInTimeScope(int beginHour, int beginMin, int endHour, int endMin) {
+        boolean result = false;
+        final long aDayInMillis = 1000 * 60 * 60 * 24;
+        final long currentTimeMillis = System.currentTimeMillis();
+        Time now = new Time();
+        now.set(currentTimeMillis);
+        Time startTime = new Time();
+        startTime.set(currentTimeMillis);
+        startTime.hour = beginHour;
+        startTime.minute = beginMin;
+        Time endTime = new Time();
+        endTime.set(currentTimeMillis);
+        endTime.hour = endHour;
+        endTime.minute = endMin;
+        // 跨天的特殊情况(比如22:00-8:00)
+        if (!startTime.before(endTime)) {
+            startTime.set(startTime.toMillis(true) - aDayInMillis);
+            result = !now.before(startTime) && !now.after(endTime); // startTime <= now <= endTime
+            Time startTimeInThisDay = new Time();
+            startTimeInThisDay.set(startTime.toMillis(true) + aDayInMillis);
+            if (!now.before(startTimeInThisDay)) {
+                result = true;
+            }
+        } else {
+            //普通情况(比如 8:00 - 14:00)
+            result = !now.before(startTime) && !now.after(endTime); // startTime <= now <= endTime
+        }
+        return result;
+    }
+
+
 }

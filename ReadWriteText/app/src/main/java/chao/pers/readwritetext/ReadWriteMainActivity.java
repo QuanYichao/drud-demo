@@ -79,7 +79,8 @@ public class ReadWriteMainActivity extends AppCompatActivity {
         }else{
             //进行写操作
             Tag tag=intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            NdefMessage ndefMessage=new NdefMessage(new NdefRecord[]{createTextRecord(sname+"\n"+sage)});
+            System.out.println("写入的改名字是："+sname);
+            NdefMessage ndefMessage=new NdefMessage(new NdefRecord[]{createTextRecord(sname+"."+sage)});
             writeTag(ndefMessage, tag);
             //提示用户注册成功
             Toast.makeText(this,"恭喜您，注册成功！",Toast.LENGTH_SHORT).show();
